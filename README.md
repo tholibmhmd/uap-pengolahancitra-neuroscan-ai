@@ -52,7 +52,7 @@ Proyek ini dikembangkan untuk memenuhi Ujian Akhir Praktikum (UAP) Program Studi
 **1. Clone Repository**
 
 ```bash
-git clone [https://github.com/USERNAME_GITHUB_KAMU/neuroscan-ai.git](https://github.com/USERNAME_GITHUB_KAMU/neuroscan-ai.git)
+git clone https://github.com/tholibmhmd/uap-pengolahancitra-neuroscan-ai.git
 cd neuroscan-ai
 
 ```
