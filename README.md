@@ -31,7 +31,7 @@ Proyek ini dikembangkan untuk memenuhi Ujian Akhir Praktikum (UAP) Program Studi
 ## 📁 Struktur Direktori
 ```text
 📦 UAP_PC_BRAINTUMOR
- ┣ 📂 dataset/           # Data latih gambar MRI (Dikecualikan dari Git)
+ ┣ 📂 dataset/           # Data latih gambar MRI (Folder kelas 'no' dan 'yes')
  ┣ 📂 static/
  ┃ ┗ 📂 uploads/         # Direktori penyimpanan citra sementara
  ┣ 📂 templates/
