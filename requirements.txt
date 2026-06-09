@@ -1,0 +1,6 @@
+Flask
+scikit-image
+scikit-learn
+numpy
+opencv-python-headless
+Werkzeug

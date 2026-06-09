@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodologi - NeuroScan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <script>
+        MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+    <style>
+        :root { --bg-body: #f5f6fa; --bg-sidebar: #ffffff; --bg-card: #ffffff; --text-primary: #2d3436; --text-secondary: #6c757d; --border-color: #edf2f9; --hover-bg: #f0f4ff; --upload-bg: #f8fafd; }
+        body.dark-mode { --bg-body: #121418; --bg-sidebar: #1b1d22; --bg-card: #1b1d22; --text-primary: #e4e6eb; --text-secondary: #b0b3b8; --border-color: #2d3035; --hover-bg: #2d3035; --upload-bg: #242526; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color: var(--text-primary); transition: 0.3s; margin: 0; }
+        .wrapper { display: flex; width: 100%; min-height: 100vh; }
+        .sidebar { width: 250px; background: var(--bg-sidebar); padding: 20px; display: flex; flex-direction: column; border-right: 1px solid var(--border-color); position: fixed; top: 0; left: 0; height: 100vh; z-index: 1000; transition: 0.3s; }
+        .main-content { margin-left: 250px; width: calc(100% - 250px); padding: 30px 40px; min-height: 100vh; }
+        .brand { font-weight: 700; font-size: 1.2rem; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; color: var(--text-primary); }
+        .nav-item { padding: 12px 15px; margin-bottom: 8px; border-radius: 10px; color: var(--text-secondary); text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .nav-item:hover, .nav-item.active { background: var(--hover-bg); color: #4361ee; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .page-title { font-weight: 600; margin: 0; font-size: 1.4rem; color: var(--text-primary); }
+        
+        .b-card { background: var(--bg-card); border-radius: 16px; padding: 24px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin-bottom: 24px; transition: 0.3s; }
+        .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 20px; color: var(--text-primary); }
+        .text-muted { color: var(--text-secondary) !important; }
+        .formula-box { background-color: var(--upload-bg); padding: 20px; border-radius: 10px; border-left: 4px solid #4361ee; margin: 15px 0; color: var(--text-primary); display: flex; flex-direction: column; height: 100%; justify-content: space-between;}
+        .formula-math { margin-top: 15px; overflow-x: auto; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <nav class="sidebar">
+        <div class="brand"><i class="bi bi-hexagon-fill text-primary"></i> NeuroScan AI</div>
+        <a href="/" class="nav-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+        <a href="/" class="nav-item"><i class="bi bi-cloud-upload"></i> Scan MRI Baru</a>
+        <a href="/riwayat" class="nav-item"><i class="bi bi-clock-history"></i> Riwayat Analisis</a>
+        <a href="/metodologi" class="nav-item active"><i class="bi bi-book"></i> Metodologi</a>
+        <a href="/tim-riset" class="nav-item"><i class="bi bi-people"></i> Tim Riset</a>
+        <div class="mt-auto"><a href="#" class="nav-item"><i class="bi bi-gear"></i> Pengaturan</a></div>
+    </nav>
+
+    <main class="main-content">
+        <div class="top-header">
+            <h2 class="page-title">Metodologi & Landasan Teori</h2>
+            <button id="theme-toggle" class="btn btn-outline-secondary rounded-circle">
+                <i id="theme-icon" class="bi bi-moon-fill"></i>
+            </button>
+        </div>
+
+        <div class="b-card">
+            <h5 class="card-title text-primary fw-bold mb-3"><i class="bi bi-matrix me-2"></i>1. Gray Level Co-occurrence Matrix (GLCM)</h5>
+            <p class="text-muted" style="line-height: 1.7; font-size: 0.95rem;">
+                Sistem mendeteksi kelainan pada otak bukan dari bentuknya, melainkan dari <strong>teksturnya</strong>. Hal ini dilakukan menggunakan metode GLCM. Sebelum dianalisis, citra MRI pasien diubah ke format <em>Grayscale</em> (derajat keabuan) dan disamakan ukurannya menjadi $128 \times 128$ piksel. GLCM bekerja dengan memindai gambar piksel demi piksel untuk mencari pola perulangan warna yang bersebelahan (pada jarak $d=1$ dan orientasi $\theta=0^\circ$).
+            </p>
+            <p class="text-muted mb-4" style="line-height: 1.7; font-size: 0.95rem;">
+                Dari pemindaian tersebut, sistem mengekstrak 4 metrik numerik krusial untuk dijadikan indikator deteksi tumor:
+            </p>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="formula-box">
+                        <div>
+                            <strong class="fs-6 d-block mb-2">a. Contrast (Ketajaman Tepi)</strong>
+                            <p class="small text-muted" style="line-height: 1.6;">
+                                Mengukur tingkat variasi intensitas warna lokal dalam citra. Pada MRI otak, nilai <em>Contrast</em> yang melonjak drastis biasanya mengindikasikan adanya batas yang sangat tajam, seperti perbedaan warna yang ekstrem antara jaringan otak normal (abu-abu) dengan gumpalan massa tumor (putih terang).
+                            </p>
+                        </div>
+                        <div class="formula-math">
+                            $$Contrast = \sum_{i,j} |i-j|^2 P(i,j)$$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="formula-box">
+                        <div>
+                            <strong class="fs-6 d-block mb-2">b. Homogeneity (Keseragaman Jaringan)</strong>
+                            <p class="small text-muted" style="line-height: 1.6;">
+                                Mengukur seberapa seragam atau mulus tekstur suatu gambar. Secara matematis, nilai ini berbanding terbalik dengan <em>Contrast</em>. Otak yang normal memiliki tekstur lipatan yang cukup seragam. Jika ada sel tumor yang merusak struktur lipatan tersebut, nilai <em>Homogeneity</em> akan merosot turun.
+                            </p>
+                        </div>
+                        <div class="formula-math">
+                            $$Homogeneity = \sum_{i,j} \frac{P(i,j)}{1 + |i-j|}$$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="formula-box">
+                        <div>
+                            <strong class="fs-6 d-block mb-2">c. Energy / ASM (Keteraturan Pola)</strong>
+                            <p class="small text-muted" style="line-height: 1.6;">
+                                Mengukur tingkat keteraturan pola tekstur. Nilai yang mendekati $0$ menandakan bahwa pola teksturnya sangat acak dan tidak beraturan. Jaringan biologis seperti otak pada dasarnya memiliki nilai <em>Energy</em> yang rendah, namun invasi tumor akan membuat strukturnya menjadi jauh lebih kacau.
+                            </p>
+                        </div>
+                        <div class="formula-math">
+                            $$Energy = \sum_{i,j} P(i,j)^2$$
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="formula-box">
+                        <div>
+                            <strong class="fs-6 d-block mb-2">d. Correlation (Hubungan Linear)</strong>
+                            <p class="small text-muted" style="line-height: 1.6;">
+                                Mengukur seberapa kuat hubungan warna sebuah piksel dengan tetangganya. Angka tinggi menunjukkan bahwa piksel-piksel tersebut berkelompok membentuk struktur anatomi yang jelas (baik jaringan normal maupun massa tumor utuh), bukan sekadar <em>noise</em> acak.
+                            </p>
+                        </div>
+                        <div class="formula-math">
+                            $$Correlation = \sum_{i,j} \frac{(i-\mu_i)(j-\mu_j)P(i,j)}{\sigma_i \sigma_j}$$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="b-card">
+            <h5 class="card-title text-warning fw-bold mb-3"><i class="bi bi-bar-chart-steps me-2"></i>2. Normalisasi Data (Standard Scaler)</h5>
+            <p class="text-muted" style="line-height: 1.7; font-size: 0.95rem;">
+                Rentang nilai dari keempat parameter GLCM di atas sangat bervariasi. Nilai <em>Contrast</em> bisa mencapai ratusan hingga ribuan, sedangkan <em>Energy</em> hanya berada di rentang desimal $0.0$ hingga $1.0$. Jika langsung dimasukkan ke dalam algoritma klasifikasi, fitur <em>Contrast</em> akan "menelan" atau mendominasi perhitungan fitur lainnya.
+            </p>
+            <p class="text-muted" style="line-height: 1.7; font-size: 0.95rem;">
+                Oleh karena itu, sistem wajib menerapkan normalisasi menggunakan <strong>Z-score Standardization</strong> untuk menekan semua nilai fitur agar memiliki skala rata-rata $(\mu)$ yang setara sebelum dianalisis oleh mesin.
+            </p>
+            <div class="formula-box text-center">
+                $$z = \frac{x - \mu}{\sigma}$$
+            </div>
+        </div>
+
+        <div class="b-card">
+            <h5 class="card-title text-success fw-bold mb-3"><i class="bi bi-diagram-3 me-2"></i>3. Klasifikasi K-Nearest Neighbors (KNN)</h5>
+            <p class="text-muted" style="line-height: 1.7; font-size: 0.95rem;">
+                Setelah fitur citra baru berhasil diekstraksi dan distandarisasi, sistem perlu memutuskan apakah citra tersebut merupakan pasien Normal atau memiliki Tumor. Hal ini dilakukan menggunakan algoritma pembelajaran mesin berbasis jarak, yaitu <strong>KNN</strong>.
+            </p>
+            <p class="text-muted" style="line-height: 1.7; font-size: 0.95rem;">
+                Algoritma ini akan membandingkan fitur citra pasien dengan ratusan citra MRI dari dataset pelatihan (<em>training data</em>) menggunakan rumus <strong>Jarak Euclidean</strong>. Sistem diatur menggunakan parameter <strong class="text-dark">$K=3$</strong>, yang berarti sistem mencari 3 gambar dari dataset latih yang karakteristik angkanya paling mirip, lalu mengambil keputusan berdasarkan mayoritas (voting terbanyak).
+            </p>
+            <div class="formula-box text-center">
+                $$d(X, Y) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$$
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        themeIcon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+        themeIcon.classList.add('text-warning');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            themeIcon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+            themeIcon.classList.add('text-warning');
+        } else {
+            localStorage.setItem('theme', 'light');
+            themeIcon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+            themeIcon.classList.remove('text-warning');
+        }
+    });
+</script>
+</body>
+</html>
